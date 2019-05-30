@@ -1,0 +1,33 @@
+{
+  "manifest_version": 2,
+  "name": "ShikiExtension",
+  "version": "0.1",
+  "description": "The browser extension for shikimori.one",
+  "content_scripts": [
+    {
+      "matches": ["https://shikimori.one/*"],
+      "css": ["resources/css/main.css"],
+      "js": [
+        "src/models/TitleVideo.js",
+        "src/controllers/TitlePage.js",
+
+        "src/services/Cache/Cache.js",
+        "src/services/HttpClient/HttpClient.js",
+        "src/services/NavigationObserver/NavigationObserver.js",
+        "src/services/Router/Router.js",
+        "src/services/Router/Route.js",
+        "src/services/View/View.js",
+
+        "src/Application.js",
+        "src/ServiceProvider.js",
+
+        "config/api-urls.js",
+        "routes/titles.js",
+
+        "src/bootstrap.js"
+      ]
+    }
+  ],
+  "permissions": ["tabs"],
+  "web_accessible_resources": ["resources/*/*"]
+}

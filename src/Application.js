@@ -5,7 +5,7 @@ const Application = (() => {
     const services = {};
     const providers = [];
 
-    const EventEmitter = (()=>{
+    const EventEmitter = (() => {
         const container = {};
 
         class EventEmitter {
@@ -13,7 +13,7 @@ const Application = (() => {
              * @param {string} eventName
              * @param {*} [args]
              */
-            static emit (eventName, ...args) {
+            static emit(eventName, ...args) {
                 if (!container[eventName])
                     return;
 
@@ -28,7 +28,7 @@ const Application = (() => {
              *
              * @return {number}
              */
-            static subscribe (eventName, listener) {
+            static subscribe(eventName, listener) {
                 if (!(eventName in container))
                     container[eventName] = [];
 
@@ -39,7 +39,7 @@ const Application = (() => {
         return EventEmitter;
     })();
 
-    const ApplicationLoader = (()=>{
+    const ApplicationLoader = (() => {
         const getProviderException =
             () => new Error('Provider is no longer available');
 
@@ -48,8 +48,8 @@ const Application = (() => {
              * @throws {Error}
              * @constructor
              */
-            constructor () {
-                if (! providerAllowed)
+            constructor() {
+                if (!providerAllowed)
                     throw getProviderException();
             }
 
@@ -59,8 +59,8 @@ const Application = (() => {
              *
              * @throws {Error}
              */
-            setConfig (name, values) {
-                if (! providerAllowed)
+            setConfig(name, values) {
+                if (!providerAllowed)
                     throw getProviderException();
 
                 configs[name] = values;
@@ -72,8 +72,8 @@ const Application = (() => {
              *
              * @throws {Error}
              */
-            registerService (name, concrete) {
-                if (! providerAllowed)
+            registerService(name, concrete) {
+                if (!providerAllowed)
                     throw getProviderException();
 
                 services[name] = concrete;
@@ -88,12 +88,12 @@ const Application = (() => {
         /**
          * @param {string} name
          */
-        static config (name) {
+        static config(name) {
             let result = configs;
 
             const chain = name.split('.');
             while (name = chain.shift()) {
-                if (! (name in result))
+                if (!(name in result))
                     return undefined;
 
                 result = result[name];
@@ -107,8 +107,8 @@ const Application = (() => {
          * @param {string} name
          * @param {Array} [args]
          */
-        static service (name, ...args) {
-            if (! (name in services))
+        static service(name, ...args) {
+            if (!(name in services))
                 throw new Error(`Service ${name} not found`);
 
             const service = services[name];
@@ -122,14 +122,14 @@ const Application = (() => {
          * @param {function<ApplicationLoader>} callable
          * @return {number}
          */
-        static registerProvider (callable) {
+        static registerProvider(callable) {
             return providers.push(callable);
         }
 
         /**
          * @return {void}
          */
-        static boot () {
+        static boot() {
             const Loader = new ApplicationLoader();
 
             let provider;

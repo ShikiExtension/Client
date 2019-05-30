@@ -13,7 +13,7 @@
  * @property {int} watches_count
  */
 class TitleVideo {
-    constructor (attributes) {
+    constructor(attributes) {
         for (const name in attributes) {
             if (attributes.hasOwnProperty(name)) {
                 this[name] = attributes[name];

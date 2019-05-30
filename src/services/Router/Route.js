@@ -1,1 +1,2 @@
-class Route {}
+class Route {
+}

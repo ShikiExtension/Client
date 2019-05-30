@@ -31,7 +31,7 @@ const Container = (() => {
 
         /**
          * @param {string} abstract
-         * @param {object|function|string} concrete
+         * @param {object|function|string} [concrete]
          * @static
          */
         static singleton(abstract, concrete) {
@@ -43,7 +43,7 @@ const Container = (() => {
                     instance = getInstanceByRealisation(concrete);
             };
 
-            this.bind(abstract, getClosure(concrete));
+            this.bind(abstract, getClosure(concrete || abstract));
         }
 
         /**

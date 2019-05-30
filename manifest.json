@@ -8,20 +8,20 @@
       "matches": ["https://shikimori.one/*"],
       "css": ["resources/css/main.css"],
       "js": [
-        "src/models/TitleVideo.js",
-        "src/controllers/TitlesController.js",
+        "app/models/TitleVideo.js",
+        "app/controllers/TitlesController.js",
 
-        "src/exceptions/HttpException.js",
-        "src/exceptions/NotFoundHttpException.js",
+        "app/exceptions/HttpException.js",
+        "app/exceptions/NotFoundHttpException.js",
 
-        "src/classes/Cache/Cache.js",
-        "src/classes/Config/Config.js",
-        "src/classes/Container/Container.js",
-        "src/classes/NavigationObserver/NavigationObserver.js",
-        "src/classes/HttpClient/HttpClient.js",
-        "src/classes/Router/Router.js",
-        "src/classes/Router/Route.js",
-        "src/classes/View/View.js",
+        "src/Cache/Cache.js",
+        "src/Config/Config.js",
+        "src/Container/Container.js",
+        "src/NavigationObserver/NavigationObserver.js",
+        "src/HttpClient/HttpClient.js",
+        "src/Router/Router.js",
+        "src/Router/Route.js",
+        "src/View/View.js",
 
         "src/ServiceProvider.js",
         "src/Application.js",
@@ -29,7 +29,7 @@
         "config/api-urls.js",
         "routes/titles.js",
 
-        "src/bootstrap.js"
+        "bootstrap.js"
       ]
     }
   ],

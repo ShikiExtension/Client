@@ -6,7 +6,6 @@ class ServiceProvider {
     static provide(loader) {
         Application.make('NavigationObserver').register();
 
-        const router = Application.make('Router');
-        Application.singleton('Router', router);
+        Application.singleton('Router');
     }
 }

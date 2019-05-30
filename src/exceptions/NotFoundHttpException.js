@@ -1,0 +1,1 @@
+class NotFoundHttpException extends HttpException {}

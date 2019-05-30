@@ -1,11 +1,12 @@
 class ServiceProvider {
     /**
      * @param {ApplicationLoader} loader
+     * @static
      */
     static provide(loader) {
-        const observer = new NavigationObserver();
-        loader.registerService('NavigationObserver', observer);
+        Application.make('NavigationObserver').register();
 
-        observer.register();
+        const router = Application.make('Router');
+        Application.singleton('Router', router);
     }
 }

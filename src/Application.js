@@ -1,14 +1,13 @@
 const Application = (() => {
-    let providerAllowed = true;
-
-    const configs = {};
-    const services = {};
-    const providers = [];
+    const ConfigInstance = new Config();
+    const providers = [
+        ServiceProvider.provide
+    ];
 
     const EventEmitter = (() => {
         const container = {};
 
-        class EventEmitter {
+        class EventEmitter extends Container{
             /**
              * @param {string} eventName
              * @param {*} [args]
@@ -39,6 +38,9 @@ const Application = (() => {
         return EventEmitter;
     })();
 
+    let AppLoader,
+        AppLoaderAvailable = true;
+
     const ApplicationLoader = (() => {
         const getProviderException =
             () => new Error('Provider is no longer available');
@@ -49,7 +51,7 @@ const Application = (() => {
              * @constructor
              */
             constructor() {
-                if (!providerAllowed)
+                if (AppLoader)
                     throw getProviderException();
             }
 
@@ -60,28 +62,17 @@ const Application = (() => {
              * @throws {Error}
              */
             setConfig(name, values) {
-                if (!providerAllowed)
+                if (!AppLoaderAvailable)
                     throw getProviderException();
 
-                configs[name] = values;
-            }
-
-            /**
-             * @param {string} name
-             * @param {object|function} concrete
-             *
-             * @throws {Error}
-             */
-            registerService(name, concrete) {
-                if (!providerAllowed)
-                    throw getProviderException();
-
-                services[name] = concrete;
+                ConfigInstance.set(name, values);
             }
         }
 
         return ApplicationLoader;
     })();
+
+    AppLoader = new ApplicationLoader();
 
     class Application extends EventEmitter {
 
@@ -89,33 +80,7 @@ const Application = (() => {
          * @param {string} name
          */
         static config(name) {
-            let result = configs;
-
-            const chain = name.split('.');
-            while (name = chain.shift()) {
-                if (!(name in result))
-                    return undefined;
-
-                result = result[name];
-            }
-
-            return result;
-        }
-
-        /**
-         *
-         * @param {string} name
-         * @param {Array} [args]
-         */
-        static service(name, ...args) {
-            if (!(name in services))
-                throw new Error(`Service ${name} not found`);
-
-            const service = services[name];
-            if (typeof service === 'object')
-                return service;
-
-            return service.apply(this, args);
+            return ConfigInstance.get(name);
         }
 
         /**
@@ -130,14 +95,10 @@ const Application = (() => {
          * @return {void}
          */
         static boot() {
-            const Loader = new ApplicationLoader();
-
             let provider;
             while (provider = providers.shift()) {
-                provider(Loader);
+                provider(AppLoader);
             }
-
-            providerAllowed = false;
         }
     }
 

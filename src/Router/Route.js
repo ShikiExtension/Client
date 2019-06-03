@@ -131,12 +131,12 @@ class Route {
      * @return {*}
      */
     callHandler() {
-        const call = callable => {
+        const call = (callable, context) => {
             const params = this.getParameters();
             if (params instanceof Array)
-                return callable(...params);
+                return callable.call(context, ...params);
 
-            return callable(params);
+            return callable.call(context, params);
         };
 
         const handler = this.__handler;
@@ -146,6 +146,6 @@ class Route {
         const [controllerName, methodName] = handler.split('@');
         const controller = Application.make(controllerName);
 
-        return call(controller[methodName]);
+        return call(controller[methodName], controller);
     }
 }

@@ -104,3 +104,5 @@ const Application = (() => {
 
     return Application;
 })();
+
+const App = Application;

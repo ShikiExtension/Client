@@ -17,11 +17,16 @@
         "src/Cache/Cache.js",
         "src/Config/Config.js",
         "src/Container/Container.js",
-        "src/NavigationObserver/NavigationObserver.js",
+        "src/HttpClient/FetchWrapper.js",
         "src/HttpClient/HttpClient.js",
+        "src/NavigationObserver/NavigationObserver.js",
         "src/Router/Router.js",
         "src/Router/Route.js",
+        "src/URLResolver/URLResolver.js",
         "src/View/View.js",
+
+        "app/services/HttpClientService.js",
+        "app/services/TitlesHttpClient.js",
 
         "src/ServiceProvider.js",
         "src/Application.js",

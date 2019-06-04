@@ -140,8 +140,8 @@ const HttpClient = (() => {
         }
 
         /**
-         * @param {string}url
-         * @param {Object} options
+         * @param {string} url
+         * @param {Object} [options]
          *
          * @return {Promise<Response>}
          * @protected

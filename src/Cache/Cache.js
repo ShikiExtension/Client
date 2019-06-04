@@ -32,4 +32,13 @@ class Cache {
     has(key) {
         return key in this.__cache;
     }
+
+    /**
+     * @return {boolean}
+     */
+    drop() {
+        this.__cache = {};
+
+        return true;
+    }
 }

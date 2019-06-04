@@ -1,9 +1,9 @@
 Application.registerProvider(function (loader) {
     loader.setConfig('api-urls', {
         remoteServer: {
-            protocol: 'http',
-            host: '77.222.63.199',
-            port: '80',
+            protocol: 'https',
+            host: 'shiki-extension.com',
+            port: '443',
         },
         titles: {
             getEpisodes: '/title/:titleId/videos/episodes',

@@ -126,20 +126,28 @@ const HttpClient = (() => {
 
             let cache = this.cache;
 
-            const FetchPromise = fetch(
-                requestUrl,
-                {
-                    method,
-                    body: data,
-                    headers: this.headers,
-                    mode: HttpClient.MODE.NO_CORS,//TODO: change to CORS
-                    credentials: HttpClient.CREDENTIALS.OMIT,
-                    cache,
-                    redirect: HttpClient.REDIRECT.FOLLOW
-                }
-            );
+            const FetchPromise = this.sendRequest(requestUrl, {
+                method,
+                body: data,
+                headers: this.headers,
+                mode: HttpClient.MODE.CORS,
+                credentials: HttpClient.CREDENTIALS.OMIT,
+                cache,
+                redirect: HttpClient.REDIRECT.FOLLOW
+            });
 
             return new FetchWrapper(FetchPromise);
+        }
+
+        /**
+         * @param {string}url
+         * @param {Object} options
+         *
+         * @return {Promise<Response>}
+         * @protected
+         */
+        sendRequest(url, options) {
+            return fetch(url, options || {});
         }
     }
 

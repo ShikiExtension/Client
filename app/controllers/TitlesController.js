@@ -2,7 +2,7 @@ class TitlesController {
     /**
      * @constructor
      */
-    constructor(){
+    constructor() {
         this.httpClient = TitlesHttpClient.getInstance();
     }
 
@@ -16,6 +16,8 @@ class TitlesController {
 
         console.log({url, titleId});
 
-        this.httpClient.getEpisodes(+titleId).then(console.log);
+        this.httpClient.getEpisodes(+titleId).json().then(res => {
+            console.log(res);
+        });
     }
 }

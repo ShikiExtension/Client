@@ -1,4 +1,4 @@
-class HttpClientService extends HttpClient {
+class HttpClientService extends CrossOriginHttpClient {
     /**
      * @constructor
      */

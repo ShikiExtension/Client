@@ -3,6 +3,18 @@
   "name": "ShikiExtension",
   "version": "0.1",
   "description": "The browser extension for shikimori.one",
+  "background": {
+    "scripts": [
+      "src/Utils/Converter.js",
+      "src/Cache/Cache.js",
+      "src/HttpClient/FetchWrapper.js",
+      "src/HttpClient/HttpClient.js",
+
+      "app-bg/listener.js",
+      "app-bg/SendRequestCommandListener.js"
+    ],
+    "persistent": false
+  },
   "content_scripts": [
     {
       "matches": ["https://shikimori.one/*"],
@@ -14,15 +26,18 @@
         "app/exceptions/HttpException.js",
         "app/exceptions/NotFoundHttpException.js",
 
+        "src/Background/Background.js",
         "src/Cache/Cache.js",
         "src/Config/Config.js",
         "src/Container/Container.js",
         "src/HttpClient/FetchWrapper.js",
         "src/HttpClient/HttpClient.js",
+        "src/HttpClient/CrossOriginHttpClient.js",
         "src/NavigationObserver/NavigationObserver.js",
         "src/Router/Router.js",
         "src/Router/Route.js",
         "src/URLResolver/URLResolver.js",
+        "src/Utils/Converter.js",
         "src/View/View.js",
 
         "app/services/HttpClientService.js",
@@ -38,6 +53,8 @@
       ]
     }
   ],
-  "permissions": [],
+  "permissions": [
+    "https://shiki-extension.com/*"
+  ],
   "web_accessible_resources": ["resources/*/*"]
 }

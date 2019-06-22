@@ -2,6 +2,28 @@ class Router {
     constructor() {
         this.routes = [];
         this.fallback = null;
+        this.currentRoute = null;
+    }
+
+    /**
+     * @param {string} name
+     * @return {Route|null}
+     */
+    getRouteByName(name) {
+        for (let i = 0; i < this.routes.length; i++) {
+            const route = this.routes[i];
+            if (route.getName() === name)
+                return route;
+        }
+
+        return null;
+    }
+
+    /**
+     * @return {Route|null}
+     */
+    getCurrentRoute() {
+        return this.currentRoute;
     }
 
     /**
@@ -41,13 +63,18 @@ class Router {
      * @return {Promise<*>}
      */
     dispatch() {
-        const requestUrl = window.top.location.pathname;
+        const location = window.top.location;
+        const requestUrl = location.href.split(location.hostname).pop();
+
         for (let i = 0; i < this.routes.length; i++) {
             const route = this.routes[i];
-            if (route.matches(requestUrl))
+            if (route.matches(requestUrl)) {
+                this.currentRoute = route;
+
                 return Promise.resolve(
                     route.callHandler()
                 );
+            }
         }
 
         const error = new Error('Not found');

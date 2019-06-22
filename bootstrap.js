@@ -1,7 +1,10 @@
 App.boot();
 
 const router = App.get('Router');
-App.subscribe('page-changed', () => {
+const dispatch = () => {
     router.dispatch().catch(e => {});
-});
-App.emit('page-changed');
+};
+
+App.subscribe('page-changed', dispatch);
+
+dispatch();

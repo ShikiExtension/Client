@@ -12,7 +12,7 @@ class Route {
     }
 
     /**
-     * @return {string|undefined}
+     * @return {string|null}
      */
     getName() {
         return this.__name;
@@ -27,6 +27,13 @@ class Route {
         this.__name = name;
 
         return this;
+    }
+
+    /**
+     * @return {string|null}
+     */
+    getUrl() {
+        return this.__url;
     }
 
     /**
@@ -56,7 +63,7 @@ class Route {
      * @return {boolean}
      */
     matches(requestUrl) {
-        const urlToArray = url => url.split('/').filter(part => part.trim().length);
+        const urlToArray = url => url.split(/[\/#]+?/g).filter(part => part.trim().length);
 
         let hasNamedParams = false;
         const params = [];
@@ -109,7 +116,15 @@ class Route {
     }
 
     /**
-     * @return {Array|object|undefined}
+     * @param {Array|Object} params
+     * @return {string}
+     */
+    compile(params) {
+        return URLResolver.resolve(this.getUrl(), params);
+    }
+
+    /**
+     * @return {Array|object|null}
      */
     getParameters() {
         return this.__params;
@@ -118,7 +133,7 @@ class Route {
     /**
      * @param {string} name
      *
-     * @return {Array|object|undefined}
+     * @return {Array|object|null}
      */
     getParameter(name) {
         return this.__params && name in this.__params ?
